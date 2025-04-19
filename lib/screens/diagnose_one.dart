@@ -73,7 +73,7 @@ class _DiagnoseOneScreenState extends State<DiagnoseOneScreen> {
             _buildLabeledTextField('National ID Number', '3030329220072',
                 isRequired: true),
             const SizedBox(height: 20),
-            _buildLabeledTextField('Age', '22', isRequired: true),
+            _buildLabeledTextField('Age', '23', isRequired: true),
             const SizedBox(height: 20),
             _buildLabeledTextField('Adress', 'Enter Your Adress'),
             const SizedBox(height: 20),
