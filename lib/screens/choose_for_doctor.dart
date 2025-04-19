@@ -13,7 +13,7 @@ class DoctorHomeView extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pop(context); // هيرجع لـ ChooseRoleScreen
+            Navigator.pop(context); //  ChooseRoleScreen
           },
         ),
       ),
@@ -66,8 +66,8 @@ class DoctorHomeView extends StatelessWidget {
                 children: [
                   Image.asset(
                     'assets/images/dental_icn.png',
-                    width: 100,
-                    height: 100,
+                    width: 200,
+                    height: 200,
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
