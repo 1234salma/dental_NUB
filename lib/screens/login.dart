@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'welcome.dart';
+
 import 'choose_for_patient.dart';
+import 'welcome.dart';
 
 class LoginScreen extends StatelessWidget {
   // إضافة TextEditingController 
@@ -110,7 +111,10 @@ class LoginScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ChooseForPatientScreen()),
+                              builder: (context) => ChooseForPatientScreen(
+                                    userName: '',
+                                    userEmail: '',
+                                  )),
                         );
                       } else {
                     

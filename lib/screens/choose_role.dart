@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
 
 class ChooseRoleScreen extends StatelessWidget {
+  const ChooseRoleScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF1F5382),
+      backgroundColor: const Color(0xFF1F5382),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white, size: 28),
+          icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Spacer(),
+          const Spacer(),
           Column(
             children: [
               Image.asset('assets/images/logo.png', height: 100),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ],
           ),
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           Container(
             height: 300,
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15),
@@ -36,7 +38,7 @@ class ChooseRoleScreen extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text(
+                const Text(
                   'Sign up as a ?',
                   style: TextStyle(
                     fontSize: 20,
@@ -44,11 +46,11 @@ class ChooseRoleScreen extends StatelessWidget {
                     color: Color(0xFF0A4D80),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _buildRoleButton(context, 'Consultant'),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 _buildRoleButton(context, 'Patient'),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 _buildRoleButton(context, 'Doctor'),
               ],
             ),
@@ -65,13 +67,16 @@ class ChooseRoleScreen extends StatelessWidget {
         width: double.infinity,
         child: OutlinedButton(
           onPressed: () {
-            if (role == 'Doctor') {
-              Navigator.pushNamed(context, '/doctor_home_view');
-            }
+            // التنقل لشاشة SignUpScreen مع تمرير الدور
+            Navigator.pushNamed(
+              context,
+              '/sign_up',
+              arguments: {'role': role},
+            );
           },
           style: OutlinedButton.styleFrom(
-            side: BorderSide(color: Color(0xFF0A4D80), width: 1),
-            padding: EdgeInsets.symmetric(vertical: 15),
+            side: const BorderSide(color: Color(0xFF0A4D80), width: 1),
+            padding: const EdgeInsets.symmetric(vertical: 15),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -79,7 +84,7 @@ class ChooseRoleScreen extends StatelessWidget {
           ),
           child: Text(
             role,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
               color: Color(0xFF0A4D80),

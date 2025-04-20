@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
-import 'choose_for_patient.dart';
-import 'login.dart'; 
 
-class SignUpScreen extends StatelessWidget {
+import 'choose_for_doctor.dart'; // استيراد شاشة الـ Consultant
+import 'choose_for_patient.dart';
+import 'login.dart';
+
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
   @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic>? arguments =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final String role =
+        arguments?['role'] ?? 'Patient'; // الدور اللي جاي من ChooseRoleScreen
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -15,14 +42,12 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
               IconButton(
-                icon: Icon(Icons.arrow_back, color: Color(0xFF1F5382)),
+                icon: const Icon(Icons.arrow_back, color: Color(0xFF1F5382)),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
-          
               Padding(
                 padding: const EdgeInsets.only(left: 16.0, top: 10.0),
                 child: Center(
@@ -42,7 +67,6 @@ class SignUpScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                
                       Text(
                         "Name",
                         style: TextStyle(
@@ -51,9 +75,9 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      _buildTextField(Icons.person, "Enter Your Name"),
+                      _buildTextField(Icons.person, "Enter Your Name",
+                          controller: _nameController),
                       const SizedBox(height: 20),
-                      // حقل "Email Address"
                       Text(
                         "Email Address",
                         style: TextStyle(
@@ -62,9 +86,9 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      _buildTextField(Icons.email, "Enter Your email address"),
+                      _buildTextField(Icons.email, "Enter Your email address",
+                          controller: _emailController),
                       const SizedBox(height: 20),
-                      // حقل "Password"
                       Text(
                         "Password",
                         style: TextStyle(
@@ -73,9 +97,9 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      _buildTextField(Icons.lock, "Enter Your password", obscureText: true),
+                      _buildTextField(Icons.lock, "Enter Your password",
+                          obscureText: true, controller: _passwordController),
                       const SizedBox(height: 20),
-                      // حقل "Confirm Password"
                       Text(
                         "Confirm password",
                         style: TextStyle(
@@ -84,23 +108,58 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      _buildTextField(Icons.lock, "Enter Your password", obscureText: true),
+                      _buildTextField(Icons.lock, "Enter Your password",
+                          obscureText: true,
+                          controller: _confirmPasswordController),
                       const SizedBox(height: 30),
-                      // زر "Save & Continue"
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ChooseForPatientScreen()),
-                            );
+                            // التأكد من تطابق كلمات المرور
+                            if (_passwordController.text !=
+                                _confirmPasswordController.text) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("Passwords do not match")),
+                              );
+                              return;
+                            }
+                            // جمع البيانات
+                            final String name = _nameController.text;
+                            final String email = _emailController.text;
+
+                            // التنقل بناءً على الدور مع تمرير البيانات
+                            if (role == 'Consultant') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DoctorHomeView(
+                                    userName: name,
+                                    userEmail: email,
+                                  ),
+                                ),
+                              );
+                            } else if (role == 'Patient') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChooseForPatientScreen(
+                                    userName: name,
+                                    userEmail: email,
+                                  ),
+                                ),
+                              );
+                            } else if (role == 'Doctor') {
+                              // تنقل مؤقت لأن شاشة الـ Doctor مش متوفرة حاليًا
+                              Navigator.pushNamed(context, '/doctor_home_view');
+                            }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF1F5382),
-                            padding: EdgeInsets.symmetric(vertical: 15),
+                            backgroundColor: const Color(0xFF1F5382),
+                            padding: const EdgeInsets.symmetric(vertical: 15),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25), 
+                              borderRadius: BorderRadius.circular(25),
                             ),
                           ),
                           child: const Text(
@@ -110,7 +169,6 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-                     
                       Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -124,16 +182,15 @@ class SignUpScreen extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () {
-                                
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => LoginScreen()),
                                 );
                               },
                               style: TextButton.styleFrom(
-                                padding: EdgeInsets.zero, 
-                                minimumSize: Size(0, 0),
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap, 
+                                padding: EdgeInsets.zero,
+                                minimumSize: const Size(0, 0),
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                               ),
                               child: Text(
                                 "Login",
@@ -157,8 +214,10 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(IconData icon, String hint, {bool obscureText = false}) {
+  Widget _buildTextField(IconData icon, String hint,
+      {bool obscureText = false, required TextEditingController controller}) {
     return TextField(
+      controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: Colors.grey[400]),
@@ -176,7 +235,7 @@ class SignUpScreen extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Color(0xFF1F5382)),
+          borderSide: const BorderSide(color: Color(0xFF1F5382)),
         ),
       ),
     );

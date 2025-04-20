@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class DoctorHomeView extends StatelessWidget {
-  const DoctorHomeView({super.key});
+  final String userName;
+  final String userEmail;
+
+  const DoctorHomeView(
+      {super.key, required this.userName, required this.userEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,7 @@ class DoctorHomeView extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pop(context); //  ChooseRoleScreen
+            Navigator.pop(context);
           },
         ),
       ),
@@ -38,16 +42,18 @@ class DoctorHomeView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Hi Angela',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                        Text(
+                          'Hi $userName',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         Text(
-                          'Dr.angela@gmail.com',
-                          style: TextStyle(color: Colors.white70, fontSize: 14),
+                          userEmail,
+                          style: const TextStyle(
+                              color: Colors.white70, fontSize: 14),
                         ),
                       ],
                     ),
@@ -76,20 +82,19 @@ class DoctorHomeView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        "/patient_list_view",
-                      );
+                      Navigator.pushNamed(context, "/patient_list_view");
                     },
                     child: const Text(
                       'Patient List',
                       style: TextStyle(
-                          color: Color(0xFF1F5382),
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                        color: Color(0xFF1F5382),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
