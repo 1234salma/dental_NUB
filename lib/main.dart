@@ -2,25 +2,24 @@ import 'package:buisness_test/screens/choose_for_doctor.dart';
 import 'package:buisness_test/screens/diagnose_one.dart';
 import 'package:buisness_test/screens/patient_list.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/chat.dart';
-import 'screens/check.dart';
-import 'screens/choose_for_patient.dart';
-import 'screens/choose_role.dart';
-import 'screens/confirmaion.dart';
-import 'screens/forgot_password.dart';
-import 'screens/health_history.dart';
-import 'screens/login.dart';
+import 'screens/splash_screen.dart';
 import 'screens/onboarding_screen1.dart';
 import 'screens/onboarding_screen2.dart';
-import 'screens/password_created.dart';
-import 'screens/registration.dart';
-import 'screens/reset.dart';
-import 'screens/settings_screen.dart'; // تأكد من إضافة ملف الإعدادات هنا
-import 'screens/sign.dart';
-import 'screens/splash_screen.dart';
-import 'screens/upload.dart';
 import 'screens/welcome.dart';
+import 'screens/login.dart';
+import 'screens/sign.dart';
+import 'screens/forgot_password.dart';
+import 'screens/password_created.dart';
+import 'screens/check.dart';
+import 'screens/reset.dart';
+import 'screens/choose_role.dart';
+import 'screens/choose_for_patient.dart';
+import 'screens/registration.dart';
+import 'screens/upload.dart';
+import 'screens/health_history.dart';
+import 'screens/confirmaion.dart';
+import 'screens/chat.dart';
+import 'screens/settings_screen.dart'; // تأكد من إضافة ملف الإعدادات هنا
 
 void main() {
   runApp(MyApp());

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'choose_for_doctor.dart'; // استيراد شاشة الـ Consultant
 import 'choose_for_patient.dart';
 import 'login.dart';
+import 'choose_for_doctor.dart'; // استيراد شاشة الـ Consultant
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -15,8 +14,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
@@ -29,10 +27,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic>? arguments =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    final String role =
-        arguments?['role'] ?? 'Patient'; // الدور اللي جاي من ChooseRoleScreen
+    final Map<String, dynamic>? arguments = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final String role = arguments?['role'] ?? 'Patient'; // الدور اللي جاي من ChooseRoleScreen
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -75,8 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      _buildTextField(Icons.person, "Enter Your Name",
-                          controller: _nameController),
+                      _buildTextField(Icons.person, "Enter Your Name", controller: _nameController),
                       const SizedBox(height: 20),
                       Text(
                         "Email Address",
@@ -86,8 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      _buildTextField(Icons.email, "Enter Your email address",
-                          controller: _emailController),
+                      _buildTextField(Icons.email, "Enter Your email address", controller: _emailController),
                       const SizedBox(height: 20),
                       Text(
                         "Password",
@@ -97,8 +91,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      _buildTextField(Icons.lock, "Enter Your password",
-                          obscureText: true, controller: _passwordController),
+                      _buildTextField(Icons.lock, "Enter Your password", obscureText: true, controller: _passwordController),
                       const SizedBox(height: 20),
                       Text(
                         "Confirm password",
@@ -108,20 +101,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      _buildTextField(Icons.lock, "Enter Your password",
-                          obscureText: true,
-                          controller: _confirmPasswordController),
+                      _buildTextField(Icons.lock, "Enter Your password", obscureText: true, controller: _confirmPasswordController),
                       const SizedBox(height: 30),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
                             // التأكد من تطابق كلمات المرور
-                            if (_passwordController.text !=
-                                _confirmPasswordController.text) {
+                            if (_passwordController.text != _confirmPasswordController.text) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text("Passwords do not match")),
+                                const SnackBar(content: Text("Passwords do not match")),
                               );
                               return;
                             }
@@ -214,8 +203,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _buildTextField(IconData icon, String hint,
-      {bool obscureText = false, required TextEditingController controller}) {
+  Widget _buildTextField(IconData icon, String hint, {bool obscureText = false, required TextEditingController controller}) {
     return TextField(
       controller: controller,
       obscureText: obscureText,

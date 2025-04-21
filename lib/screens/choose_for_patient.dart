@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-
-import 'chat.dart';
 import 'registration.dart';
+import 'chat.dart';
 import 'settings_screen.dart';
 
 class ChooseForPatientScreen extends StatelessWidget {
   final String userName;
   final String userEmail;
 
-  const ChooseForPatientScreen(
-      {super.key, required this.userName, required this.userEmail});
+  const ChooseForPatientScreen({super.key, required this.userName, required this.userEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +75,7 @@ class ChooseForPatientScreen extends StatelessWidget {
                   context,
                   'Take Appointment',
                   screenWidth * 0.35,
-                  () {
+                      () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => RegistrationScreen()),
@@ -99,7 +97,7 @@ class ChooseForPatientScreen extends StatelessWidget {
                   context,
                   'ASK Chat NUB',
                   screenWidth * 0.35,
-                  () {
+                      () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ChatScreen()),

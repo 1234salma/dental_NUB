@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'account_screen.dart';
-import 'privacy_screen.dart';
-import 'security_screen.dart';
-import 'help_screen.dart';
-import 'about_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -14,14 +10,14 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool isNotificationEnabled = true;
-  bool isDarkModeEnabled = false; 
+  bool isDarkModeEnabled = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white, 
+        backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Color(0xFF1F5382)),
@@ -32,7 +28,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: Text(
           "Settings",
           style: TextStyle(
-            color: Color(0xFF1F5382), 
+            color: Color(0xFF1F5382),
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -71,40 +67,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => AccountScreen()));
               },
             ),
-            _buildSettingItem(
-              icon: Icons.privacy_tip,
-              title: "Privacy",
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => PrivacyScreen()));
-              },
-            ),
-            _buildSettingItem(
-              icon: Icons.security,
-              title: "Security",
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SecurityScreen()));
-              },
-            ),
-            _buildSettingItem(
-              icon: Icons.help,
-              title: "Help",
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HelpScreen()));
-              },
-            ),
-            _buildSettingItem(
-              icon: Icons.info,
-              title: "About",
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => AboutScreen()));
-              },
-            ),
           ],
         ),
       ),
     );
   }
-
 
   Widget _buildSettingItem({
     required IconData icon,
@@ -123,12 +90,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             Row(
               children: [
-                Icon(icon, color: Color(0xFF1F5382)), 
+                Icon(icon, color: Color(0xFF1F5382)),
                 SizedBox(width: 10),
                 Text(
                   title,
                   style: TextStyle(
-                    color: Color(0xFF1F5382), 
+                    color: Color(0xFF1F5382),
                     fontSize: 16,
                   ),
                 ),
