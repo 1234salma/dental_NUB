@@ -19,7 +19,17 @@ import 'screens/upload.dart';
 import 'screens/health_history.dart';
 import 'screens/confirmaion.dart';
 import 'screens/chat.dart';
-import 'screens/settings_screen.dart'; // تأكد من إضافة ملف الإعدادات هنا
+import 'screens/settings_screen.dart';
+
+// سكرييناتك الخاصة
+import 'screens/home_stu.dart';
+import 'screens/patient_list_screen.dart'; // MyPatientListScreen هنا
+import 'screens/community_store.dart';
+import 'screens/community_free_screen.dart';
+import 'screens/add_tools_screen.dart';
+import 'screens/product_details.dart';
+import 'screens/contact.dart';
+import 'screens/community_groups.dart';
 
 void main() {
   runApp(MyApp());
@@ -59,6 +69,28 @@ class MyApp extends StatelessWidget {
             ),
         '/patient_list_view': (context) => PatientListScreen(),
         '/diagnose_one': (context) => DiagnoseOneScreen(),
+
+        // ⬇ سكرييناتك الخاصة الجديدة ⬇
+        '/home_stu': (context) => HomeScreen(),
+        '/my_patient_list': (context) =>
+            MyPatientListScreen(), // المسار الجديد بدون تعارض
+        '/community_store': (context) => CommunityStore(),
+        '/community_free': (context) => CommunityFreeScreen(),
+        '/add_tools': (context) => AddToolsScreen(
+              onAddProduct: (product) {
+                print('Product added: $product');
+              },
+            ),
+        '/product_details': (context) => const ProductDetails(
+              image: '',
+              title: '',
+              price: '',
+              description: '',
+              brand: '',
+              isNew: false,
+            ),
+        '/contact': (context) => const ContactDetailsScreen(),
+        '/community_groups': (context) => const CommunityGroupsScreen(),
       },
     );
   }
