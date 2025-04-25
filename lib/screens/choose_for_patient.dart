@@ -7,7 +7,11 @@ class ChooseForPatientScreen extends StatelessWidget {
   final String userName;
   final String userEmail;
 
-  const ChooseForPatientScreen({super.key, required this.userName, required this.userEmail});
+  const ChooseForPatientScreen({
+    super.key,
+    required this.userName,
+    required this.userEmail,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +55,14 @@ class ChooseForPatientScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SettingsScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => SettingsScreen(
+                      role: 'Patient',
+                      userName: userName,
+                      userEmail: userEmail,
+                      phone: '01123451789', // جديد: قيمة افتراضية للـ phone
+                    ),
+                  ),
                 );
               },
             ),
@@ -75,7 +86,7 @@ class ChooseForPatientScreen extends StatelessWidget {
                   context,
                   'Take Appointment',
                   screenWidth * 0.35,
-                      () {
+                  () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => RegistrationScreen()),
@@ -97,7 +108,7 @@ class ChooseForPatientScreen extends StatelessWidget {
                   context,
                   'ASK Chat NUB',
                   screenWidth * 0.35,
-                      () {
+                  () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ChatScreen()),
@@ -112,7 +123,12 @@ class ChooseForPatientScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCustomButton(BuildContext context, String text, double width, VoidCallback onPressed) {
+  Widget _buildCustomButton(
+    BuildContext context,
+    String text,
+    double width,
+    VoidCallback onPressed,
+  ) {
     return SizedBox(
       width: width,
       child: OutlinedButton(

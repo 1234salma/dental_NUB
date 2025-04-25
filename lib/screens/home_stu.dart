@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,15 +16,13 @@ class _HomeScreenState extends State<HomeScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    // استقبال البيانات من WelcomeDoctorScreen
-    final Map<String, dynamic>? arguments =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final Map<String, dynamic>? arguments = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     final String userName = arguments?['userName'] ?? 'Angela';
     final String userEmail = arguments?['userEmail'] ?? 'Dr.angela@gmail.com';
-    final String clinic = arguments?['clinic'] ?? '';
-    final String id = arguments?['id'] ?? '';
     final String academicYear = arguments?['academicYear'] ?? '';
     final String phone = arguments?['phone'] ?? '';
+    final String clinic = arguments?['clinic'] ?? '';
+    final String id = arguments?['id'] ?? ''; // جديد
 
     return Scaffold(
       backgroundColor: const Color(0xFF1F5382),
@@ -65,8 +64,26 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        actions: const [
-          Icon(Icons.settings, color: Colors.white, size: 28),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings, color: Colors.white, size: 28),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SettingsScreen(
+                    role: 'Doctor',
+                    userName: userName,
+                    userEmail: userEmail,
+                    academicYear: academicYear,
+                    phone: phone,
+                    clinic: clinic,
+                    id: id, // جديد
+                  ),
+                ),
+              );
+            },
+          ),
         ],
       ),
       body: Center(
@@ -91,17 +108,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     setState(() {
                       selectedTab = 'Cases';
                     });
-                    // التنقل لـ MyPatientListScreen مع تمرير البيانات
                     Navigator.pushNamed(
                       context,
-                      '/my_patient_list', // تعديل المسار ليطابق main.dart
+                      '/my_patient_list',
                       arguments: {
                         'userName': userName,
                         'userEmail': userEmail,
-                        'clinic': clinic,
-                        'id': id,
                         'academicYear': academicYear,
                         'phone': phone,
+                        'clinic': clinic,
+                        'id': id, // جديد
                       },
                     );
                   },
