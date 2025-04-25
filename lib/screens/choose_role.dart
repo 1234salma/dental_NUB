@@ -12,7 +12,7 @@ class ChooseRoleScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(context), // يرجع للشاشة السابقة
         ),
       ),
       body: Column(
@@ -67,7 +67,6 @@ class ChooseRoleScreen extends StatelessWidget {
         width: double.infinity,
         child: OutlinedButton(
           onPressed: () {
-            // التنقل لشاشة SignUpScreen مع تمرير الدور
             Navigator.pushNamed(
               context,
               '/sign_up',

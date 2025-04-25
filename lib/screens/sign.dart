@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
+import 'choose_for_doctor.dart'; // استيراد شاشة الـ Consultant
 import 'choose_for_patient.dart';
 import 'login.dart';
-import 'choose_for_doctor.dart'; // استيراد شاشة الـ Consultant
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -141,7 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               );
                             } else if (role == 'Doctor') {
                               // تنقل مؤقت لأن شاشة الـ Doctor مش متوفرة حاليًا
-                              Navigator.pushNamed(context, '/doctor_home_view');
+                              Navigator.pushNamed(context, '/home_stu');
                             }
                           },
                           style: ElevatedButton.styleFrom(

@@ -2,34 +2,35 @@ import 'package:buisness_test/screens/choose_for_doctor.dart';
 import 'package:buisness_test/screens/diagnose_one.dart';
 import 'package:buisness_test/screens/patient_list.dart';
 import 'package:flutter/material.dart';
-import 'screens/splash_screen.dart';
-import 'screens/onboarding_screen1.dart';
-import 'screens/onboarding_screen2.dart';
-import 'screens/welcome.dart';
-import 'screens/login.dart';
-import 'screens/sign.dart';
-import 'screens/forgot_password.dart';
-import 'screens/password_created.dart';
-import 'screens/check.dart';
-import 'screens/reset.dart';
-import 'screens/choose_role.dart';
-import 'screens/choose_for_patient.dart';
-import 'screens/registration.dart';
-import 'screens/upload.dart';
-import 'screens/health_history.dart';
-import 'screens/confirmaion.dart';
-import 'screens/chat.dart';
-import 'screens/settings_screen.dart';
 
+import 'screens/add_tools_screen.dart';
+import 'screens/chat.dart';
+import 'screens/check.dart';
+import 'screens/choose_for_patient.dart';
+import 'screens/choose_role.dart';
+import 'screens/community_free_screen.dart';
+import 'screens/community_groups.dart';
+import 'screens/community_store.dart';
+import 'screens/confirmaion.dart';
+import 'screens/contact.dart';
+import 'screens/forgot_password.dart';
+import 'screens/health_history.dart';
 // سكرييناتك الخاصة
 import 'screens/home_stu.dart';
-import 'screens/patient_list_screen.dart'; // MyPatientListScreen هنا
-import 'screens/community_store.dart';
-import 'screens/community_free_screen.dart';
-import 'screens/add_tools_screen.dart';
+import 'screens/login.dart';
+import 'screens/onboarding_screen1.dart';
+import 'screens/onboarding_screen2.dart';
+import 'screens/password_created.dart';
+import 'screens/patient_list_screen.dart';
 import 'screens/product_details.dart';
-import 'screens/contact.dart';
-import 'screens/community_groups.dart';
+import 'screens/registration.dart';
+import 'screens/reset.dart';
+import 'screens/settings_screen.dart';
+import 'screens/sign.dart';
+import 'screens/splash_screen.dart';
+import 'screens/upload.dart';
+import 'screens/welcome.dart';
+import 'screens/welcome_stu.dart';
 
 void main() {
   runApp(MyApp());
@@ -69,6 +70,10 @@ class MyApp extends StatelessWidget {
             ),
         '/patient_list_view': (context) => PatientListScreen(),
         '/diagnose_one': (context) => DiagnoseOneScreen(),
+        '/welcome_doctor': (context) => WelcomeDoctorScreen(
+              userName: 'Angela', // قيمة افتراضية للاختبار
+              userEmail: 'Dr.angela@gmail.com', // قيمة افتراضية للاختبار
+            ),
 
         // ⬇ سكرييناتك الخاصة الجديدة ⬇
         '/home_stu': (context) => HomeScreen(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'upload.dart';
+
 import 'health_history.dart';
+import 'upload.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -17,43 +18,39 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   int timesBrushing = 0;
   int cigarettesPerDay = 0;
 
+  final Color customBlue = const Color(0xFF1F5382);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color(0xFF1F5382)),
+          icon: Icon(Icons.arrow_back, color: customBlue),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
+        title: const Text(
+          'Registration',
+          style: TextStyle(
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF1F5382),
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const SizedBox(), 
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(
-              child: Padding(
-                padding: EdgeInsets.only(top: 20.0),
-                child: Text(
-                  "Registration",
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF1F5382),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-
+            const SizedBox(height: 20),
             _buildLabeledTextField("Full Name *", "Enter Your Name", isRequired: true),
-            const SizedBox(height: 20), // زيادة المسافة بين الحقول
+            const SizedBox(height: 20),
             _buildLabeledTextField("Phone Number *", "Enter Your Phone", isRequired: true),
             const SizedBox(height: 20),
             _buildLabeledTextField("National ID *", "Enter Your National ID Number", isRequired: true),
@@ -62,63 +59,59 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             const SizedBox(height: 20),
             _buildLabeledTextField("Address", "Enter Your Address"),
             const SizedBox(height: 20),
-
             _buildTitle("Select your Gender *"),
             Row(
               children: [
                 _buildRadioButton("Male", "Male", group: "gender"),
+                const SizedBox(width: 8),
                 _buildRadioButton("Female", "Female", group: "gender"),
               ],
             ),
             const SizedBox(height: 20),
-
             _buildTitle("Select your Booking *"),
             Row(
               children: [
                 _buildRadioButton("Normal", "Normal", group: "booking"),
+                const SizedBox(width: 8),
                 _buildRadioButton("VIP", "VIP", group: "booking"),
               ],
             ),
             const SizedBox(height: 20),
-
             _buildTitle("Do you brush your teeth?"),
             Row(
               children: [
-                _buildCheckbox("Yes", true),
-                _buildCheckbox("No", false),
+                _buildCheckbox("Yes", true, isBrushing: true),
+                const SizedBox(width: 8),
+                _buildCheckbox("No", false, isBrushing: true),
               ],
             ),
             const SizedBox(height: 20),
-
             _buildCounter("How many times a day?", timesBrushing, (val) {
               setState(() {
                 timesBrushing = val;
               });
             }),
             const SizedBox(height: 20),
-
             _buildTitle("Do you smoke?"),
             Row(
               children: [
                 _buildCheckbox("Yes", true, isSmoking: true),
+                const SizedBox(width: 8),
                 _buildCheckbox("No", false, isSmoking: true),
               ],
             ),
             const SizedBox(height: 20),
-
             _buildCounter("How many cigarettes a day?", cigarettesPerDay, (val) {
               setState(() {
                 cigarettesPerDay = val;
               });
             }),
             const SizedBox(height: 20),
-
             _buildUploadField("Upload", () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => UploadScreen()));
             }),
-            const SizedBox(height: 10),
-
-            _buildButton("Next", Color(0xFF1F5382), () {
+            const SizedBox(height: 20),
+            _buildButton("Next", customBlue, () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => HealthHistoryScreen()));
             }),
           ],
@@ -132,7 +125,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
           color: Color(0xFF1F5382),
@@ -151,14 +144,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             children: [
               Text(
                 label,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF1F5382),
                 ),
               ),
               if (isRequired)
-                Text(
+                const Text(
                   " *",
                   style: TextStyle(color: Colors.red, fontSize: 16),
                 ),
@@ -168,17 +161,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           TextFormField(
             decoration: InputDecoration(
               hintText: hint,
+              hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.grey),
+                borderSide: const BorderSide(color: Colors.grey),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.grey),
+                borderSide: const BorderSide(color: Colors.grey),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.grey),
+                borderSide: const BorderSide(color: Colors.grey),
               ),
               filled: true,
               fillColor: Colors.white,
@@ -206,14 +200,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 8),
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFF1F5382)),
+            border: Border.all(color: customBlue),
             borderRadius: BorderRadius.circular(10),
-            color: isSelected ? Colors.blue[100] : Colors.white,
+            color: isSelected ? customBlue : Colors.white,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Radio(
+              Radio<String>(
                 value: value,
                 groupValue: group == "gender" ? gender : bookingType,
                 onChanged: (String? newValue) {
@@ -225,9 +219,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     }
                   });
                 },
-                activeColor: Color(0xFF1F5382),
+                activeColor: isSelected ? Colors.white : customBlue,
+                fillColor: MaterialStateProperty.resolveWith((states) {
+                  if (states.contains(MaterialState.selected)) {
+                    return Colors.white;
+                  }
+                  return customBlue;
+                }),
               ),
-              Text(label, style: TextStyle(color: Color(0xFF1F5382))),
+              Text(
+                label,
+                style: TextStyle(
+                  color: isSelected ? Colors.white : customBlue,
+                  fontSize: 14,
+                ),
+              ),
             ],
           ),
         ),
@@ -235,14 +241,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  Widget _buildCheckbox(String label, bool value, {bool isSmoking = false}) {
+  Widget _buildCheckbox(String label, bool value,
+      {bool isSmoking = false, bool isBrushing = false}) {
+    bool isSelected =
+        (isSmoking && smoke == value) || (isBrushing && brushTeeth == value);
     return Expanded(
       child: GestureDetector(
         onTap: () {
           setState(() {
             if (isSmoking) {
               smoke = value;
-            } else {
+            } else if (isBrushing) {
               brushTeeth = value;
             }
           });
@@ -250,27 +259,34 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 8),
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFF1F5382)),
+            border: Border.all(color: customBlue),
             borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+            color: isSelected ? customBlue : Colors.white,
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Checkbox(
-                value: isSmoking ? smoke == value : brushTeeth == value,
+                value: isSelected,
                 onChanged: (bool? newValue) {
                   setState(() {
                     if (isSmoking) {
                       smoke = newValue!;
-                    } else {
+                    } else if (isBrushing) {
                       brushTeeth = newValue!;
                     }
                   });
                 },
-                activeColor: Color(0xFF1F5382),
+                activeColor: customBlue,
                 checkColor: Colors.white,
               ),
-              Text(label, style: TextStyle(color: Color(0xFF1F5382))),
+              Text(
+                label,
+                style: TextStyle(
+                  color: isSelected ? Colors.white : customBlue,
+                  fontSize: 14,
+                ),
+              ),
             ],
           ),
         ),
@@ -283,27 +299,36 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
-          Expanded(child: Text(label, style: TextStyle(fontSize: 16, color: Color(0xFF1F5382)))),
+          Expanded(
+            child: Text(
+              label,
+              style: TextStyle(fontSize: 16, color: customBlue),
+            ),
+          ),
           Container(
             decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFF1F5382)),
+              border: Border.all(color: customBlue),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
               children: [
                 IconButton(
                   icon: const Icon(Icons.remove),
-                  color: Color(0xFF1F5382),
+                  color: customBlue,
                   onPressed: () {
                     if (count > 0) {
                       onChanged(count - 1);
                     }
                   },
                 ),
-                Text(count.toString(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                Text(
+                  count.toString(),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                ),
                 IconButton(
                   icon: const Icon(Icons.add),
-                  color: Color(0xFF1F5382),
+                  color: customBlue,
                   onPressed: () {
                     onChanged(count + 1);
                   },

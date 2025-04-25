@@ -1,19 +1,4 @@
 import 'package:flutter/material.dart';
-import 'patient_list_screen.dart';
-import 'community_store.dart'; // لو عندك الشاشة دي
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: HomeScreen());
-  }
-}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,145 +8,162 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String selectedTab = ''; // بداية بدون تفعيل
+  String selectedTab = '';
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    // استقبال البيانات من WelcomeDoctorScreen
+    final Map<String, dynamic>? arguments =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final String userName = arguments?['userName'] ?? 'Angela';
+    final String userEmail = arguments?['userEmail'] ?? 'Dr.angela@gmail.com';
+    final String clinic = arguments?['clinic'] ?? '';
+    final String id = arguments?['id'] ?? '';
+    final String academicYear = arguments?['academicYear'] ?? '';
+    final String phone = arguments?['phone'] ?? '';
+
     return Scaffold(
-      backgroundColor: Color(0xFF1F5382),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundImage: AssetImage('images/profile.png'),
-                      ),
-                      SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Hi Angela',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text(
-                            'Dr.angela@gmail.com',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+      backgroundColor: const Color(0xFF1F5382),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
+          onPressed: () {
+            Navigator.pushNamed(context, '/choose_role');
+          },
+        ),
+        title: Row(
+          children: [
+            const CircleAvatar(
+              radius: 20,
+              backgroundImage: AssetImage('assets/images/profile.png'),
+            ),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Hi $userName',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
                   ),
-                  Icon(Icons.settings, color: Colors.white, size: 28),
-                ],
-              ),
-
-              SizedBox(height: 100),
-
-              // Cards
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  buildCustomCard(
-                    label: 'Cases',
-                    image: 'images/teeth.png',
-                    isSelected: selectedTab == 'Cases',
-                    onTap: () {
-                      setState(() {
-                        selectedTab = 'Cases';
-                      });
-
-                      Future.delayed(Duration(milliseconds: 200), () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MyPatientListScreen(),
-                          ),
-                        );
-                      });
-                    },
+                ),
+                Text(
+                  userEmail,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
                   ),
-                  buildCustomCard(
-                    label: 'Community NUB',
-                    image: 'images/tools.png',
-                    isSelected: selectedTab == 'Community NUB',
-                    onTap: () {
-                      setState(() {
-                        selectedTab = 'Community NUB';
-                      });
-
-                      Future.delayed(Duration(milliseconds: 200), () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CommunityStore(),
-                          ),
-                        );
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        actions: const [
+          Icon(Icons.settings, color: Colors.white, size: 28),
+        ],
+      ),
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/images/teeth.png',
+                  height: screenHeight * 0.15,
+                ),
+                const SizedBox(height: 15),
+                _buildCustomButton(
+                  context,
+                  'Cases',
+                  screenWidth * 0.35,
+                  selectedTab == 'Cases',
+                  () {
+                    setState(() {
+                      selectedTab = 'Cases';
+                    });
+                    // التنقل لـ MyPatientListScreen مع تمرير البيانات
+                    Navigator.pushNamed(
+                      context,
+                      '/my_patient_list', // تعديل المسار ليطابق main.dart
+                      arguments: {
+                        'userName': userName,
+                        'userEmail': userEmail,
+                        'clinic': clinic,
+                        'id': id,
+                        'academicYear': academicYear,
+                        'phone': phone,
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(width: 15),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/images/tools.png',
+                  height: screenHeight * 0.15,
+                ),
+                const SizedBox(height: 15),
+                _buildCustomButton(
+                  context,
+                  'Community NUB',
+                  screenWidth * 0.35,
+                  selectedTab == 'Community NUB',
+                  () {
+                    setState(() {
+                      selectedTab = 'Community NUB';
+                    });
+                    Navigator.pushNamed(context, '/community_store');
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget buildCustomCard({
-    required String label,
-    required String image,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    final bool isTapped = isSelected;
-    final Color backgroundColor = isTapped ? Color(0xFF1F5382) : Colors.white;
-    final Color textColor = isTapped ? Colors.white : Color(0xFF1F5382);
-    final Border? border =
-        isTapped ? Border.all(color: Colors.white, width: 1.5) : null;
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Image.asset(image, width: 140, height: 140, fit: BoxFit.contain),
-          SizedBox(height: 10),
-          Container(
-            width: 155,
-            height: 50,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: BorderRadius.circular(10),
-              border: border,
-            ),
-            alignment: Alignment.center,
-            child: Text(
-              label,
-              style: TextStyle(
-                color: textColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+  Widget _buildCustomButton(
+    BuildContext context,
+    String text,
+    double width,
+    bool isSelected,
+    VoidCallback onPressed,
+  ) {
+    return SizedBox(
+      width: width,
+      child: OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: Colors.white, width: 1),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-        ],
+          backgroundColor: isSelected ? Colors.blue[100] : Colors.white,
+        ),
+        child: Text(
+          text,
+          style: const TextStyle(
+            fontSize: 14,
+            color: Color(0xFF1F5382),
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
     );
   }
