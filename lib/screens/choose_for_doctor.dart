@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'settings_screen.dart';
+
 class DoctorHomeView extends StatelessWidget {
   final String userName;
   final String userEmail;
 
-  const DoctorHomeView({super.key, required this.userName, required this.userEmail});
+  const DoctorHomeView({super.key, required this.userName, required this.userEmail, required String role});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +66,13 @@ class DoctorHomeView extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const SettingsScreen()),
+                      MaterialPageRoute(
+                        builder: (context) => SettingsScreen(
+                          role: 'Consultant',
+                          userName: userName,
+                          userEmail: userEmail, academicYear: '', clinic: '', phone: '', id: '',
+                        ),
+                      ),
                     );
                   },
                 ),

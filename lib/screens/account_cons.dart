@@ -1,50 +1,32 @@
 import 'package:flutter/material.dart';
-import 'edit.dart';
 
-class AccountDoctorScreen extends StatefulWidget {
+class AccountConsultantScreen extends StatefulWidget {
   final String role;
   final String userName;
   final String userEmail;
-  final String? academicYear;
-  final String? phone;
-  final String? clinic;
-  final String? id;
 
-  const AccountDoctorScreen({
+  const AccountConsultantScreen({
     super.key,
     required this.role,
     required this.userName,
     required this.userEmail,
-    this.academicYear,
-    this.phone,
-    this.clinic,
-    this.id,
   });
 
   @override
-  State<AccountDoctorScreen> createState() => _AccountDoctorScreenState();
+  State<AccountConsultantScreen> createState() => _AccountConsultantScreenState();
 }
 
-class _AccountDoctorScreenState extends State<AccountDoctorScreen> {
+class _AccountConsultantScreenState extends State<AccountConsultantScreen> {
   late String _role;
   late String _userName;
   late String _userEmail;
-  late String? _academicYear;
-  late String? _phone;
-  late String? _clinic;
-  late String? _id;
 
   @override
   void initState() {
     super.initState();
-    // تهيئة القيم الابتدائية من الـ widget
     _role = widget.role;
     _userName = widget.userName;
     _userEmail = widget.userEmail;
-    _academicYear = widget.academicYear;
-    _phone = widget.phone;
-    _clinic = widget.clinic;
-    _id = widget.id;
   }
 
   @override
@@ -60,7 +42,6 @@ class _AccountDoctorScreenState extends State<AccountDoctorScreen> {
             child: SafeArea(
               child: Column(
                 children: [
-                  // زر الرجوع في أعلى يسار
                   Align(
                     alignment: Alignment.topLeft,
                     child: Directionality(
@@ -109,7 +90,7 @@ class _AccountDoctorScreenState extends State<AccountDoctorScreen> {
               ),
             ),
           ),
-          // الجزء السفلي (أبيض) مع SingleChildScrollView
+          // الجزء السفلي (أبيض)
           Expanded(
             child: Container(
               color: Colors.white,
@@ -118,7 +99,7 @@ class _AccountDoctorScreenState extends State<AccountDoctorScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 10),
-                    _buildDoctorInfo(context),
+                    _buildConsultantInfo(context),
                     const SizedBox(height: 20),
                     _buildButton(
                       context,
@@ -138,50 +119,11 @@ class _AccountDoctorScreenState extends State<AccountDoctorScreen> {
     );
   }
 
-  Widget _buildDoctorInfo(BuildContext context) {
+  Widget _buildConsultantInfo(BuildContext context) {
     return Column(
       children: [
         _infoCard(Icons.person, _userName),
-        _infoCard(Icons.badge, _id ?? 'Not provided'),
-        _infoCard(Icons.school, _academicYear ?? 'Not provided'),
         _infoCard(Icons.email, _userEmail),
-        _infoCard(Icons.phone, _phone ?? 'Not provided'),
-        _infoCard(Icons.local_hospital, _clinic ?? 'Not provided'),
-        const SizedBox(height: 10),
-        _buildButton(
-          context,
-          text: 'Edit Profile',
-          backgroundColor: const Color(0xFF1F5382),
-          textColor: Colors.white,
-          onPressed: () async {
-            // نستنى القيم المحدّثة من الـ EditProfileScreen
-            final updatedData = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => EditProfileScreen(
-                  userName: _userName,
-                  userEmail: _userEmail,
-                  academicYear: _academicYear,
-                  phone: _phone,
-                  clinic: _clinic,
-                  id: _id,
-                ),
-              ),
-            );
-
-            // لو رجع بيانات محدّثة، نحدّث القيم في الـ AccountDoctorScreen
-            if (updatedData != null && updatedData is Map<String, dynamic>) {
-              setState(() {
-                _userName = updatedData['userName'] ?? _userName;
-                _userEmail = updatedData['userEmail'] ?? _userEmail;
-                _academicYear = updatedData['academicYear'] ?? _academicYear;
-                _phone = updatedData['phone'] ?? _phone;
-                _clinic = updatedData['clinic'] ?? _clinic;
-                _id = updatedData['id'] ?? _id;
-              });
-            }
-          },
-        ),
       ],
     );
   }

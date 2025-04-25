@@ -63,10 +63,10 @@ class MyApp extends StatelessWidget {
         '/health_history': (context) => HealthHistoryScreen(),
         '/appointment_confirmation': (context) => ConfirmationScreen(),
         '/chat': (context) => ChatScreen(),
-        '/settings': (context) => SettingsScreen(),
+        '/settings': (context) => SettingsScreen(userName: '', userEmail: '', role: '', academicYear: '', phone: '', clinic: '', id: '',),
         '/choose_for_doctor': (context) => DoctorHomeView(
               userName: '',
-              userEmail: '',
+              userEmail: '', role: '',
             ),
         '/patient_list_view': (context) => PatientListScreen(),
         '/diagnose_one': (context) => DiagnoseOneScreen(),
