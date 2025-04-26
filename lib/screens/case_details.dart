@@ -164,7 +164,7 @@ class PatientDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
-                  //  "You can view the diagnose from here"
+                  //
                   Center(
                     child: Text(
                       'You can view the diagnose from here',

@@ -25,7 +25,7 @@ class ContactUSScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // خلفية بيضاء
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: BackButton(color: Color(0xFF376D9F)),
         backgroundColor: Colors.white,
@@ -44,7 +44,7 @@ class ContactUSScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 30), // زيادة المسافة بين النص والكونتينر
+            SizedBox(height: 30), //
             Container(
               decoration: BoxDecoration(
                 color: Colors.grey.shade100,
@@ -62,11 +62,11 @@ class ContactUSScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  buildRow(Icons.attach_money, idController), // أيقونة فلوس
+                  buildRow(Icons.attach_money, idController), //
                   SizedBox(height: 15),
-                  buildRow(Icons.person_outline, nameController), // أيقونة شخص
+                  buildRow(Icons.person_outline, nameController), //
                   SizedBox(height: 15),
-                  buildRow(Icons.smartphone, phoneController), // أيقونة موبايل
+                  buildRow(Icons.smartphone, phoneController), //
                   SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
@@ -103,8 +103,7 @@ class ContactUSScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 12), // زيادة عرض الزر
+                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 12), //
                     ),
                     child: Text(
                       "Copy",
@@ -144,7 +143,7 @@ class ContactUSScreen extends StatelessWidget {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
-              color: Colors.black54, // لون النص زي الصورة
+              color: Colors.black54, //
             ),
             decoration: InputDecoration(
               contentPadding:
