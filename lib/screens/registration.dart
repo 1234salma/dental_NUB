@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'health_history.dart';
 import 'upload.dart';
+import 'health_history.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});

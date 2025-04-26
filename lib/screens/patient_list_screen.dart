@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'case_details.dart'; //
 
 class MyPatientListScreen extends StatefulWidget {
   const MyPatientListScreen({super.key});
@@ -14,77 +15,64 @@ class _MyPatientListScreenState extends State<MyPatientListScreen> {
     'Aya Nady Yassien',
   ];
 
-  String query = "";
-
-  final Color primaryColor = Color(0xFF1F5382); // الأزرق الداكن
-  final Color hintGray = Color(0xFFBDBDBD); // رمادي فاتح للنص والأيقونة
+  final Color primaryColor = Color(0xFF1F5382); //
+  final Color hintGray = Color(0xFFBDBDBD); //
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // الخلفية بيضاء
+      backgroundColor: Colors.white, //
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white, //
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: primaryColor),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
-          'Patients list',
-          style: TextStyle(
-            color: primaryColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/background_wave.png.png'),
+            fit: BoxFit.cover, //
           ),
         ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
+        child: Stack(
           children: [
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  query = value.toLowerCase();
-                });
-              },
-              style: TextStyle(fontSize: 16),
-              decoration: InputDecoration(
-                hintText: 'Find a patient',
-                hintStyle: TextStyle(color: hintGray),
-                prefixIcon: Icon(Icons.search, color: hintGray),
-                filled: true,
-                fillColor: Colors.white, // خلفية بيضاء
-                contentPadding: EdgeInsets.symmetric(vertical: 14),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: primaryColor),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: primaryColor, width: 2),
+            //  "You have new cases !"
+            Positioned(
+              top: 100, //
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Text(
+                  'You have new cases !',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 16),
-            Expanded(
+            //
+            Padding(
+              padding:
+                  const EdgeInsets.only(top: 180.0, left: 16.0, right: 16.0), //
               child: ListView.builder(
                 itemCount: patients.length,
                 itemBuilder: (context, index) {
                   final patient = patients[index];
-                  if (query.isNotEmpty &&
-                      !patient.toLowerCase().contains(query)) {
-                    return SizedBox.shrink();
-                  }
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6.0),
+                    padding: const EdgeInsets.symmetric(vertical: 12.0), //
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: primaryColor,
+                        backgroundColor: Colors.white,
+                        //
+                        side: BorderSide(color: primaryColor, width: 1.5),
+                        //
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(50), //
                         ),
                         padding: EdgeInsets.symmetric(
                           vertical: 16,
@@ -92,18 +80,31 @@ class _MyPatientListScreenState extends State<MyPatientListScreen> {
                         ),
                         elevation: 0,
                       ),
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '${index + 1}. $patient',
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                      onPressed: () {
+                        //
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                PatientDetailsScreen(patient: patient),
                           ),
+                        );
+                      },
+                      child: Row(
+                        children: [
                           Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.white,
-                            size: 16,
+                            Icons.add_box_outlined, //
+                            color: primaryColor,
+                            size: 24,
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            patient,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
