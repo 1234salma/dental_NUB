@@ -19,7 +19,7 @@ class PatientDetailsScreen extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            //  "Hello! These are your case details!"
+            //  //"Hello! These are your case details!"
             Positioned(
               top: 50,
               left: 0,

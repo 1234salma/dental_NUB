@@ -133,7 +133,7 @@ class ContactUSScreen extends StatelessWidget {
             icon,
             color: Color(0xFF376D9F),
             size: 25,
-          ),
+          ), //icon
         ),
         SizedBox(width: 10),
         Expanded(

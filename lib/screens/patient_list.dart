@@ -17,7 +17,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
     'Hager Ahmed Saeed',
     'Ahmed Yasser',
     'Hazem Bakry',
-    'Mostafa Ahmed Ali',
+    'Mostafa Ahmed ',
     'Nada Ahmed Ali',
     'Tasneem Yasser',
     'Arwa Zanaty'
