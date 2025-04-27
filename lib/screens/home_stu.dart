@@ -13,172 +13,346 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
-    final Map<String, dynamic>? arguments = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final Map<String, dynamic>? arguments =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     final String userName = arguments?['userName'] ?? 'Angela';
     final String userEmail = arguments?['userEmail'] ?? 'Dr.angela@gmail.com';
     final String academicYear = arguments?['academicYear'] ?? '';
     final String phone = arguments?['phone'] ?? '';
     final String clinic = arguments?['clinic'] ?? '';
-    final String id = arguments?['id'] ?? ''; // جديد
+    final String id = arguments?['id'] ?? '';
 
     return Scaffold(
-      backgroundColor: const Color(0xFF1F5382),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
-          onPressed: () {
-            Navigator.pushNamed(context, '/choose_role');
-          },
+      backgroundColor: const Color(0xFF1E5481),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  const CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage('assets/images/hager.png'),
+                  ),
+                  const SizedBox(width: 15),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hi $userName!',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        userEmail,
+                        style: const TextStyle(
+                          color: Color(0xFFE1E1E1),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 40),
+              // Cases Card
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF5F8FA),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.mail_outline,
+                                color: Color(0xFF1E5481),
+                                size: 24,
+                              ),
+                              const SizedBox(width: 10),
+                              const Expanded(
+                                child: Text(
+                                  'You have a new case !',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF2E2E2E),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          SizedBox(
+                            height: 45,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  selectedTab = 'Cases';
+                                });
+                                Navigator.pushNamed(
+                                  context,
+                                  '/my_patient_list',
+                                  arguments: {
+                                    'userName': userName,
+                                    'userEmail': userEmail,
+                                    'academicYear': academicYear,
+                                    'phone': phone,
+                                    'clinic': clinic,
+                                    'id': id,
+                                  },
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: const Color(0xFF1E5481),
+                                side: const BorderSide(
+                                  color: Color(0xFF1E5481),
+                                  width: 1.5,
+                                ),
+                                elevation: 2,
+                                shadowColor: Colors.black.withOpacity(0.2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
+                              child: const Text(
+                                'Open',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Image.asset(
+                      'assets/images/third.png',
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.contain,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              // Community Card
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF5F8FA),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.travel_explore_outlined,
+                                color: Color(0xFF1E5481),
+                                size: 24,
+                              ),
+                              const SizedBox(width: 10),
+                              const Expanded(
+                                child: Text(
+                                  'You can now explore our\ncommunity!',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF2E2E2E),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          SizedBox(
+                            height: 45,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  selectedTab = 'Community NUB';
+                                });
+                                Navigator.pushNamed(
+                                    context, '/community_store');
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: const Color(0xFF1E5481),
+                                side: const BorderSide(
+                                  color: Color(0xFF1E5481),
+                                  width: 1.5,
+                                ),
+                                elevation: 2,
+                                shadowColor: Colors.black.withOpacity(0.2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
+                              child: const Text(
+                                'Open',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Image.asset(
+                      'assets/images/mytool.png',
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.contain,
+                    ),
+                  ],
+                ),
+              ),
+              const Spacer(),
+            ],
+          ),
         ),
-        title: Row(
-          children: [
-            const CircleAvatar(
-              radius: 20,
-              backgroundImage: AssetImage('assets/images/profile.png'),
+      ),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10,
+              offset: Offset(0, -2),
             ),
-            const SizedBox(width: 10),
+          ],
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            // Home
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  'Hi $userName',
-                  style: const TextStyle(
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: const Color(0xFFFFC107),
+                  child: const Icon(
+                    Icons.home,
                     color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                Text(
-                  userEmail,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
+                const SizedBox(height: 4),
+                const Text(
+                  'Home',
+                  style: TextStyle(
+                    color: Color(0xFF1E5481),
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings, color: Colors.white, size: 28),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SettingsScreen(
-                    role: 'Doctor',
-                    userName: userName,
-                    userEmail: userEmail,
-                    academicYear: academicYear,
-                    phone: phone,
-                    clinic: clinic,
-                    id: id, // جديد
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+            // Setting
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(
-                  'assets/images/teeth.png',
-                  height: screenHeight * 0.15,
-                ),
-                const SizedBox(height: 15),
-                _buildCustomButton(
-                  context,
-                  'Cases',
-                  screenWidth * 0.35,
-                  selectedTab == 'Cases',
-                  () {
-                    setState(() {
-                      selectedTab = 'Cases';
-                    });
-                    Navigator.pushNamed(
+                IconButton(
+                  icon: const Icon(
+                    Icons.settings,
+                    size: 28,
+                    color: Color(0xFF1E5481),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
                       context,
-                      '/my_patient_list',
-                      arguments: {
-                        'userName': userName,
-                        'userEmail': userEmail,
-                        'academicYear': academicYear,
-                        'phone': phone,
-                        'clinic': clinic,
-                        'id': id, // جديد
-                      },
+                      MaterialPageRoute(
+                        builder: (context) => SettingsScreen(
+                          role:
+                              'Doctor', // بناءً على السياق، الـ role هنا Doctor
+                          userName: userName,
+                          userEmail: userEmail,
+                          academicYear: academicYear,
+                          phone: phone,
+                          clinic: clinic,
+                          id: id,
+                        ),
+                      ),
                     );
                   },
                 ),
+                const SizedBox(height: 4),
+                const Text(
+                  'Setting',
+                  style: TextStyle(
+                    color: Color(0xFF1E5481),
+                  ),
+                ),
               ],
             ),
-            const SizedBox(width: 15),
+            // About Us
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(
-                  'assets/images/tools.png',
-                  height: screenHeight * 0.15,
-                ),
-                const SizedBox(height: 15),
-                _buildCustomButton(
-                  context,
-                  'Community NUB',
-                  screenWidth * 0.35,
-                  selectedTab == 'Community NUB',
-                  () {
-                    setState(() {
-                      selectedTab = 'Community NUB';
-                    });
-                    Navigator.pushNamed(context, '/community_store');
+                IconButton(
+                  icon: const Icon(
+                    Icons.info,
+                    size: 28,
+                    color: Color(0xFF1E5481),
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/about_us');
                   },
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'About Us',
+                  style: TextStyle(
+                    color: Color(0xFF1E5481),
+                  ),
                 ),
               ],
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCustomButton(
-    BuildContext context,
-    String text,
-    double width,
-    bool isSelected,
-    VoidCallback onPressed,
-  ) {
-    return SizedBox(
-      width: width,
-      child: OutlinedButton(
-        onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
-          side: const BorderSide(color: Colors.white, width: 1),
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          backgroundColor: isSelected ? Colors.blue[100] : Colors.white,
-        ),
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontSize: 14,
-            color: Color(0xFF1F5382),
-            fontWeight: FontWeight.w600,
-          ),
         ),
       ),
     );

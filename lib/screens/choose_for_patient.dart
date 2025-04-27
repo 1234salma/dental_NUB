@@ -6,11 +6,19 @@ import 'settings_screen.dart';
 class ChooseForPatientScreen extends StatelessWidget {
   final String userName;
   final String userEmail;
+  final String academicYear;
+  final String phone;
+  final String clinic;
+  final String id;
 
   const ChooseForPatientScreen({
     super.key,
     required this.userName,
     required this.userEmail,
+    this.academicYear = '',
+    this.phone = '',
+    this.clinic = '',
+    this.id = '',
   });
 
   @override
@@ -297,7 +305,10 @@ class ChooseForPatientScreen extends StatelessWidget {
                           role: 'Patient',
                           userName: userName,
                           userEmail: userEmail,
-                          phone: '01123451789',
+                          academicYear: academicYear,
+                          phone: phone,
+                          clinic: clinic,
+                          id: id,
                         ),
                       ),
                     );
@@ -315,14 +326,19 @@ class ChooseForPatientScreen extends StatelessWidget {
             // About Us
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Icon(
-                  Icons.info,
-                  size: 28,
-                  color: Color(0xFF1E5481),
+              children: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.info,
+                    size: 28,
+                    color: Color(0xFF1E5481),
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/about_us');
+                  },
                 ),
-                SizedBox(height: 4),
-                Text(
+                const SizedBox(height: 4),
+                const Text(
                   'About Us',
                   style: TextStyle(
                     color: Color(0xFF1E5481),

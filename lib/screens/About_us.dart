@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'home_stu.dart'; // استيراد HomeScreen
 
-class AboutUs extends StatelessWidget {
+class AboutUs extends StatefulWidget {
   const AboutUs({super.key});
+
+  @override
+  State<AboutUs> createState() => _AboutUsState();
+}
+
+class _AboutUsState extends State<AboutUs> {
+  int selectedIndex = 2; // 0: Home, 1: Setting, 2: About Us
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +32,17 @@ class AboutUs extends StatelessWidget {
                           'Welcome to DentalNUB!',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 4),
+                        SizedBox(height: 8),
                         Text(
                           "Here's what our application is all about:",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ],
@@ -42,8 +51,8 @@ class AboutUs extends StatelessWidget {
                   const SizedBox(width: 10),
                   Image.asset(
                     'assets/images/cute.png',
-                    width: 120,
-                    height: 120,
+                    width: 100,
+                    height: 100,
                     fit: BoxFit.contain,
                   ),
                 ],
@@ -70,27 +79,27 @@ class AboutUs extends StatelessWidget {
                         text:
                             'DentalNUB is a graduation project developed by computer science students.',
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 20),
                       buildPointItem(
                         text:
                             'The application helps dental students to find patient cases easily.',
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 20),
                       buildPointItem(
                         text:
                             'Patients can book appointments and receive better healthcare through the app.',
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 20),
                       buildPointItem(
                         text:
                             'The app automatically distributes cases to students based on academic year and ranking.',
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 20),
                       buildPointItem(
                         text:
                             'DentalNUB aims to enhance dental education and patient treatment quality.',
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 20),
                       buildPointItem(
                         isMission: true,
                         text:
@@ -105,7 +114,6 @@ class AboutUs extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Container(
-        height: 80,
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -115,41 +123,32 @@ class AboutUs extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.black12,
-              blurRadius: 8,
+              blurRadius: 10,
               offset: Offset(0, -2),
             ),
           ],
         ),
-        child: Stack(
-          clipBehavior: Clip.none,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                buildBottomItem(
-                    icon: Icons.home, label: 'Home', isSelected: false),
-                buildBottomItem(
-                    icon: Icons.settings, label: 'Setting', isSelected: false),
-                const SizedBox(width: 60),
-              ],
+            // Home
+            buildBottomItem(
+              icon: Icons.home,
+              label: 'Home',
+              index: 0,
             ),
-            Positioned(
-              top: -30,
-              left: MediaQuery.of(context).size.width / 2 - 35,
-              child: Container(
-                height: 70,
-                width: 70,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFC107),
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 4),
-                ),
-                child: const Icon(
-                  Icons.info,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
+            // Setting
+            buildBottomItem(
+              icon: Icons.settings,
+              label: 'Setting',
+              index: 1,
+            ),
+            // About Us
+            buildBottomItem(
+              icon: Icons.info,
+              label: 'About Us',
+              index: 2,
             ),
           ],
         ),
@@ -161,10 +160,13 @@ class AboutUs extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          isMission ? Icons.adjust : Icons.check_circle_rounded,
-          color: const Color(0xFFFFC107),
-          size: 24,
+        Container(
+          padding: const EdgeInsets.only(top: 3),
+          child: Icon(
+            isMission ? Icons.adjust : Icons.check_circle_rounded,
+            color: const Color(0xFFFFC107),
+            size: 24,
+          ),
         ),
         const SizedBox(width: 15),
         Expanded(
@@ -173,7 +175,8 @@ class AboutUs extends StatelessWidget {
             style: const TextStyle(
               color: Color(0xFF2E2E2E),
               fontSize: 16,
-              fontWeight: FontWeight.normal,
+              height: 1.5,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),
@@ -182,26 +185,50 @@ class AboutUs extends StatelessWidget {
   }
 
   Widget buildBottomItem(
-      {required IconData icon,
-      required String label,
-      required bool isSelected}) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          icon,
-          color: const Color(0xFF1E5481),
-          size: 28,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Color(0xFF1E5481),
-            fontWeight: FontWeight.w500,
+      {required IconData icon, required String label, required int index}) {
+    bool isSelected = selectedIndex == index;
+    return GestureDetector(
+      onTap: () {
+        if (index == 0) {
+          setState(() {
+            selectedIndex = index;
+          });
+          Navigator.pushReplacementNamed(context, '/home_stu');
+        } else if (index == 1) {
+          Navigator.pushNamed(context, '/settings');
+        }
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (isSelected)
+            CircleAvatar(
+              radius: 20,
+              backgroundColor: const Color(0xFFFFC107),
+              child: Icon(
+                icon,
+                color: Colors.white,
+                size: 28,
+              ),
+            )
+          else
+            Icon(
+              icon,
+              color: const Color(0xFF1E5481),
+              size: 28,
+            ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              color: isSelected
+                  ? const Color(0xFFFFC107)
+                  : const Color(0xFF1E5481),
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

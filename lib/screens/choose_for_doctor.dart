@@ -4,11 +4,19 @@ import 'settings_screen.dart';
 class DoctorHomeView extends StatelessWidget {
   final String userName;
   final String userEmail;
+  final String academicYear;
+  final String phone;
+  final String clinic;
+  final String id;
 
   const DoctorHomeView({
     super.key,
     required this.userName,
     required this.userEmail,
+    this.academicYear = '',
+    this.phone = '',
+    this.clinic = '',
+    this.id = '',
     required String role,
   });
 
@@ -213,10 +221,10 @@ class DoctorHomeView extends StatelessWidget {
                           role: 'Consultant',
                           userName: userName,
                           userEmail: userEmail,
-                          academicYear: '',
-                          clinic: '',
-                          phone: '',
-                          id: '',
+                          academicYear: academicYear,
+                          phone: phone,
+                          clinic: clinic,
+                          id: id,
                         ),
                       ),
                     );
@@ -234,14 +242,19 @@ class DoctorHomeView extends StatelessWidget {
             // About Us
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Icon(
-                  Icons.info,
-                  size: 28,
-                  color: Color(0xFF1E5481),
+              children: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.info,
+                    size: 28,
+                    color: Color(0xFF1E5481),
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/about_us');
+                  },
                 ),
-                SizedBox(height: 4),
-                Text(
+                const SizedBox(height: 4),
+                const Text(
                   'About Us',
                   style: TextStyle(
                     color: Color(0xFF1E5481),

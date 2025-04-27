@@ -20,6 +20,7 @@ import 'screens/health_history.dart';
 import 'screens/confirmaion.dart';
 import 'screens/chat.dart';
 import 'screens/settings_screen.dart';
+import 'screens/about_us.dart'; // إضافة الـ import بتاع AboutUs.dart
 
 // سكرييناتك الخاصة
 import 'screens/home_stu.dart';
@@ -100,6 +101,7 @@ class MyApp extends StatelessWidget {
             ),
         '/contact': (context) => const ContactDetailsScreen(),
         '/community_groups': (context) => const CommunityGroupsScreen(),
+        '/about_us': (context) => const AboutUs(), // إضافة المسار بتاع AboutUs
       },
     );
   }
