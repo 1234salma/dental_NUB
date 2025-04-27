@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'contact.dart'; // استيراد شاشة الاتصال
+
+import 'contact_us.dart';
 
 class ProductDetails extends StatelessWidget {
   final String image;
@@ -22,7 +23,7 @@ class ProductDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // ← الخلفية بقت بيضاء
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -94,7 +95,7 @@ class ProductDetails extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ContactDetailsScreen(),
+                      builder: (context) => ContactUSScreen(),
                     ),
                   );
                 },

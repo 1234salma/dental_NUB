@@ -1,19 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
-  runApp(ContactUS());
-}
-
-class ContactUS extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ContactUSScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
+import 'community_store.dart'; // استيراد شاشة CommunityStore
 
 class ContactUSScreen extends StatelessWidget {
   final TextEditingController idController =
@@ -22,12 +10,25 @@ class ContactUSScreen extends StatelessWidget {
       TextEditingController(text: "Merna");
   final TextEditingController phoneController = TextEditingController();
 
+  // شيلنا 'const' من الـ constructor
+  ContactUSScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: BackButton(color: Color(0xFF376D9F)),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF376D9F)),
+          onPressed: () {
+            // الرجوع إلى شاشة CommunityStore
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const CommunityStore()),
+              (route) => false, // إزالة كل الشاشات السابقة
+            );
+          },
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -35,8 +36,8 @@ class ContactUSScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           children: [
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Contact US',
               style: TextStyle(
                 color: Color(0xFF376D9F),
@@ -44,37 +45,37 @@ class ContactUSScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 30), //
+            const SizedBox(height: 30),
             Container(
               decoration: BoxDecoration(
                 color: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xFF376D9F).withOpacity(0.1),
+                    color: const Color(0xFF376D9F).withOpacity(0.1),
                     spreadRadius: 5,
                     blurRadius: 10,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  buildRow(Icons.attach_money, idController), //
-                  SizedBox(height: 15),
-                  buildRow(Icons.person_outline, nameController), //
-                  SizedBox(height: 15),
-                  buildRow(Icons.smartphone, phoneController), //
-                  SizedBox(height: 15),
+                  buildRow(Icons.attach_money, idController),
+                  const SizedBox(height: 15),
+                  buildRow(Icons.person_outline, nameController),
+                  const SizedBox(height: 15),
+                  buildRow(Icons.smartphone, phoneController),
+                  const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
                       if (idController.text.isNotEmpty) {
                         Clipboard.setData(
                             ClipboardData(text: idController.text));
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Phone number copied!')),
+                          const SnackBar(content: Text('Phone number copied!')),
                         );
                       }
                     },
@@ -86,26 +87,28 @@ class ContactUSScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
                       if (idController.text.isNotEmpty) {
                         Clipboard.setData(
                             ClipboardData(text: idController.text));
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Phone number copied!')),
+                          const SnackBar(content: Text('Phone number copied!')),
                         );
                       }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      side: BorderSide(color: Color(0xFF376D9F), width: 1.5),
+                      side: const BorderSide(
+                          color: Color(0xFF376D9F), width: 1.5),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 12), //
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 12),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Copy",
                       style: TextStyle(
                         color: Color(0xFF376D9F),
@@ -131,32 +134,34 @@ class ContactUSScreen extends StatelessWidget {
           backgroundColor: Colors.white,
           child: Icon(
             icon,
-            color: Color(0xFF376D9F),
+            color: const Color(0xFF376D9F),
             size: 25,
-          ), //icon
+          ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Expanded(
           child: TextField(
             controller: controller,
             enabled: false,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
-              color: Colors.black54, //
+              color: Colors.black54,
             ),
             decoration: InputDecoration(
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               filled: true,
               fillColor: Colors.white,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide(color: Color(0xFF376D9F), width: 1.5),
+                borderSide:
+                    const BorderSide(color: Color(0xFF376D9F), width: 1.5),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide(color: Color(0xFF376D9F), width: 1.5),
+                borderSide:
+                    const BorderSide(color: Color(0xFF376D9F), width: 1.5),
               ),
             ),
           ),
