@@ -4,7 +4,7 @@ import 'choose_for_patient.dart';
 import 'admin_screen.dart'; // هنضيف الملف ده بعدين
 
 class LoginScreen extends StatelessWidget {
-  // إضافة TextEditingController 
+  // إضافة TextEditingController
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 24, color: Color(0xFF1F5382)),
                 ),
                 const SizedBox(height: 20),
-              
+
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -91,7 +91,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                
+
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -179,7 +179,8 @@ class LoginScreen extends StatelessWidget {
             top: 20,
             left: 10,
             child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Color(0xFF1F5382), size: 30),
+              icon: const Icon(Icons.arrow_back,
+                  color: Color(0xFF1F5382), size: 30),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,

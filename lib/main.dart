@@ -20,6 +20,7 @@ import 'screens/health_history.dart';
 import 'screens/confirmaion.dart';
 import 'screens/chat.dart';
 import 'screens/settings_screen.dart';
+import 'screens/about_us.dart'; // إضافة الـ import بتاع AboutUs.dart
 
 // سكرييناتك الخاصة
 import 'screens/home_stu.dart';
@@ -62,10 +63,19 @@ class MyApp extends StatelessWidget {
         '/health_history': (context) => HealthHistoryScreen(),
         '/appointment_confirmation': (context) => ConfirmationScreen(),
         '/chat': (context) => ChatScreen(),
-        '/settings': (context) => SettingsScreen(userName: '', userEmail: '', role: '', academicYear: '', phone: '', clinic: '', id: '',),
+        '/settings': (context) => SettingsScreen(
+              userName: '',
+              userEmail: '',
+              role: '',
+              academicYear: '',
+              phone: '',
+              clinic: '',
+              id: '',
+            ),
         '/choose_for_doctor': (context) => DoctorHomeView(
               userName: '',
-              userEmail: '', role: '',
+              userEmail: '',
+              role: '',
             ),
         '/patient_list_view': (context) => PatientListScreen(),
         '/diagnose_one': (context) => DiagnoseOneScreen(),
@@ -91,6 +101,7 @@ class MyApp extends StatelessWidget {
             ),
         '/contact': (context) => const ContactDetailsScreen(),
         '/community_groups': (context) => const CommunityGroupsScreen(),
+        '/about_us': (context) => const AboutUs(), // إضافة المسار بتاع AboutUs
       },
     );
   }

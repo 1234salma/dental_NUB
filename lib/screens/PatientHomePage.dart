@@ -1,25 +1,7 @@
 import 'package:flutter/material.dart';
-import 'registration.dart';
-import 'chat.dart';
-import 'settings_screen.dart';
 
-class ChooseForPatientScreen extends StatelessWidget {
-  final String userName;
-  final String userEmail;
-  final String academicYear;
-  final String phone;
-  final String clinic;
-  final String id;
-
-  const ChooseForPatientScreen({
-    super.key,
-    required this.userName,
-    required this.userEmail,
-    this.academicYear = '',
-    this.phone = '',
-    this.clinic = '',
-    this.id = '',
-  });
+class PatientHomePage extends StatelessWidget {
+  const PatientHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,24 +18,24 @@ class ChooseForPatientScreen extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     radius: 30,
-                    backgroundImage: AssetImage('assets/images/Angela.png'),
+                    backgroundImage: AssetImage('assets/images/shaimaa.png'),
                   ),
                   const SizedBox(width: 15),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: const [
                       Text(
-                        'Hi $userName!',
-                        style: const TextStyle(
+                        'Hi Shimaa Barakat !',
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      SizedBox(height: 5),
                       Text(
-                        userEmail,
-                        style: const TextStyle(
+                        'shimaa@gmail.com',
+                        style: TextStyle(
                           color: Color(0xFFE1E1E1),
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -65,7 +47,7 @@ class ChooseForPatientScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 40),
-            // Take Appointment Card
+            // Booking Card
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               padding: const EdgeInsets.all(20),
@@ -87,15 +69,15 @@ class ChooseForPatientScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          children: const [
-                            Icon(
-                              Icons.event,
+                          children: [
+                            const Icon(
+                              Icons.event, // أيقونة الحجز
                               color: Color(0xFF1E5481),
                               size: 20,
                             ),
-                            SizedBox(width: 10),
-                            Text(
-                              'You can take an\nappointment now!',
+                            const SizedBox(width: 10),
+                            const Text(
+                              'You can book an\nappointment now!',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -109,11 +91,7 @@ class ChooseForPatientScreen extends StatelessWidget {
                           height: 45,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RegistrationScreen()),
-                              );
+                              // Navigate to Booking screen
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
@@ -128,7 +106,7 @@ class ChooseForPatientScreen extends StatelessWidget {
                               ),
                             ),
                             child: const Text(
-                              'Take Appointment',
+                              'Booking',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -172,15 +150,15 @@ class ChooseForPatientScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          children: const [
-                            Icon(
-                              Icons.chat_bubble,
+                          children: [
+                            const Icon(
+                              Icons.chat_bubble, // أيقونة الشات
                               color: Color(0xFF1E5481),
                               size: 20,
                             ),
-                            SizedBox(width: 10),
-                            Text(
-                              'You can open\nASK Chat NUB',
+                            const SizedBox(width: 10),
+                            const Text(
+                              'You can Open our\nStatic chat',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -202,11 +180,7 @@ class ChooseForPatientScreen extends StatelessWidget {
                           height: 45,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ChatScreen()),
-                              );
+                              // Navigate to Chat screen
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
@@ -290,32 +264,14 @@ class ChooseForPatientScreen extends StatelessWidget {
             // Setting
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.settings,
-                    size: 28,
-                    color: Color(0xFF1E5481),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SettingsScreen(
-                          role: 'Patient',
-                          userName: userName,
-                          userEmail: userEmail,
-                          academicYear: academicYear,
-                          phone: phone,
-                          clinic: clinic,
-                          id: id,
-                        ),
-                      ),
-                    );
-                  },
+              children: const [
+                Icon(
+                  Icons.settings,
+                  size: 28,
+                  color: Color(0xFF1E5481),
                 ),
-                const SizedBox(height: 4),
-                const Text(
+                SizedBox(height: 4),
+                Text(
                   'Setting',
                   style: TextStyle(
                     color: Color(0xFF1E5481),
@@ -326,19 +282,14 @@ class ChooseForPatientScreen extends StatelessWidget {
             // About Us
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.info,
-                    size: 28,
-                    color: Color(0xFF1E5481),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/about_us');
-                  },
+              children: const [
+                Icon(
+                  Icons.info,
+                  size: 28,
+                  color: Color(0xFF1E5481),
                 ),
-                const SizedBox(height: 4),
-                const Text(
+                SizedBox(height: 4),
+                Text(
                   'About Us',
                   style: TextStyle(
                     color: Color(0xFF1E5481),
