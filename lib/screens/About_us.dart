@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'home_stu.dart'; // استيراد HomeScreen
 
 class AboutUs extends StatefulWidget {
   const AboutUs({super.key});
@@ -16,6 +15,8 @@ class _AboutUsState extends State<AboutUs> {
     return Scaffold(
       backgroundColor: const Color(0xFF1E5481),
       body: SafeArea(
+        left: false, // منع SafeArea من إضافة مساحات على الجانب الأيسر
+        right: false, // منع SafeArea من إضافة مساحات على الجانب الأيمن
         child: Column(
           children: [
             // Blue Section
@@ -61,9 +62,8 @@ class _AboutUsState extends State<AboutUs> {
             // White Rounded Section
             Expanded(
               child: Container(
-                width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                width: double.infinity, // التأكد من إن العرض يغطي الشاشة كلها
+                margin: EdgeInsets.zero, // إزالة أي هوامش خارجية
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -72,40 +72,44 @@ class _AboutUsState extends State<AboutUs> {
                   ),
                 ),
                 child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      buildPointItem(
-                        text:
-                            'DentalNUB is a graduation project developed by computer science students.',
-                      ),
-                      const SizedBox(height: 20),
-                      buildPointItem(
-                        text:
-                            'The application helps dental students to find patient cases easily.',
-                      ),
-                      const SizedBox(height: 20),
-                      buildPointItem(
-                        text:
-                            'Patients can book appointments and receive better healthcare through the app.',
-                      ),
-                      const SizedBox(height: 20),
-                      buildPointItem(
-                        text:
-                            'The app automatically distributes cases to students based on academic year and ranking.',
-                      ),
-                      const SizedBox(height: 20),
-                      buildPointItem(
-                        text:
-                            'DentalNUB aims to enhance dental education and patient treatment quality.',
-                      ),
-                      const SizedBox(height: 20),
-                      buildPointItem(
-                        isMission: true,
-                        text:
-                            'Our mission is to bridge the gap between dental learning and real-world practice.',
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildPointItem(
+                          text:
+                              'DentalNUB is a graduation project developed by computer science students.',
+                        ),
+                        const SizedBox(height: 20),
+                        buildPointItem(
+                          text:
+                              'The application helps dental students to find patient cases easily.',
+                        ),
+                        const SizedBox(height: 20),
+                        buildPointItem(
+                          text:
+                              'Patients can book appointments and receive better healthcare through the app.',
+                        ),
+                        const SizedBox(height: 20),
+                        buildPointItem(
+                          text:
+                              'The app automatically distributes cases to students based on academic year and ranking.',
+                        ),
+                        const SizedBox(height: 20),
+                        buildPointItem(
+                          text:
+                              'DentalNUB aims to enhance dental education and patient treatment quality.',
+                        ),
+                        const SizedBox(height: 20),
+                        buildPointItem(
+                          isMission: true,
+                          text:
+                              'Our mission is to bridge the gap between dental learning and real-world practice.',
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -116,10 +120,6 @@ class _AboutUsState extends State<AboutUs> {
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
           boxShadow: [
             BoxShadow(
               color: Colors.black12,

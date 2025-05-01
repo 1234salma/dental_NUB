@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'onboarding_screen2.dart';
 import 'welcome.dart';
 
@@ -25,7 +26,7 @@ class OnboardingScreen1 extends StatelessWidget {
               left: 20,
               right: 20,
               child: Image.asset(
-                "assets/images/cuate.png",
+                "assets/images/chat.png",
                 width: screenWidth - 80,
                 height: (screenHeight * 0.35),
                 fit: BoxFit.contain,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'community_store.dart';
-import 'product_details.dart';
-import 'home_stu.dart';
+
 import 'add_tools_screen.dart';
+import 'community_store.dart';
+import 'contact_us.dart'; // استبدلنا ProductDetails بـ ContactUSScreen
+import 'home_stu.dart';
 
 class CommunityFreeScreen extends StatefulWidget {
   const CommunityFreeScreen({super.key});
@@ -71,61 +72,31 @@ class _CommunityFreeScreenState extends State<CommunityFreeScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: Icon(
-                        Icons.arrow_back_ios_new,
-                        size: 20,
-                        color: Colors.black,
-                      ),
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (_) => HomeScreen()),
-                          (route) => false,
-                        );
-                      },
+                  IconButton(
+                    padding: EdgeInsets.zero,
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new,
+                      size: 20,
+                      color: Colors.black,
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),
-                        border: Border.all(color: Color(0xFFDBDBDB)),
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Explore",
-                          hintStyle: TextStyle(
-                            fontSize: 14,
-                            color: Color(0xFFBDBDBD),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.search,
-                            size: 20,
-                            color: Color(0xFFBDBDBD),
-                          ),
-                          contentPadding: EdgeInsets.zero,
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (_) => const HomeScreen()),
+                        (route) => false,
+                      );
+                    },
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 children: [
                   buildStyledTab("All"),
@@ -133,12 +104,12 @@ class _CommunityFreeScreenState extends State<CommunityFreeScreen> {
                   buildStyledTab("Add your tools"),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: freeProducts.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
@@ -148,26 +119,19 @@ class _CommunityFreeScreenState extends State<CommunityFreeScreen> {
                   final product = freeProducts[index];
                   return GestureDetector(
                     onTap: () {
+                      // غيرنا التنقل لشاشة ContactUSScreen بدل ProductDetails
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder:
-                              (_) => ProductDetails(
-                                image: product["image"]!,
-                                title: product["title"]!,
-                                price: product["price"]!,
-                                description: product["description"] ?? '',
-                                brand: product["brand"] ?? '',
-                                isNew: product["isNew"] == "true",
-                              ),
+                          builder: (_) => ContactUSScreen(),
                         ),
                       );
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color(0xFFF7F7F7),
+                        color: const Color(0xFFF7F7F7),
                         borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black12,
                             blurRadius: 4,
@@ -175,7 +139,7 @@ class _CommunityFreeScreenState extends State<CommunityFreeScreen> {
                           ),
                         ],
                       ),
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -188,10 +152,10 @@ class _CommunityFreeScreenState extends State<CommunityFreeScreen> {
                               fit: BoxFit.contain,
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             product["title"]!,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 13,
                               color: Colors.black,
@@ -199,7 +163,7 @@ class _CommunityFreeScreenState extends State<CommunityFreeScreen> {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Text(
                             product["price"]!,
                             style: TextStyle(
@@ -214,7 +178,7 @@ class _CommunityFreeScreenState extends State<CommunityFreeScreen> {
                   );
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -232,18 +196,17 @@ class _CommunityFreeScreenState extends State<CommunityFreeScreen> {
           if (label == "All") {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => CommunityStore()),
+              MaterialPageRoute(builder: (_) => const CommunityStore()),
             );
           } else if (label == "Add your tools") {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder:
-                    (_) => AddToolsScreen(
-                      onAddProduct: (product) {
-                        print("تمت إضافة المنتج: $product");
-                      },
-                    ),
+                builder: (_) => AddToolsScreen(
+                  onAddProduct: (product) {
+                    print("تمت إضافة المنتج: $product");
+                  },
+                ),
               ),
             );
           } else {
@@ -253,16 +216,16 @@ class _CommunityFreeScreenState extends State<CommunityFreeScreen> {
           }
         },
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: isSelected ? Color(0xFF1F5382) : Colors.white,
+            color: isSelected ? const Color(0xFF1F5382) : Colors.white,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Color(0xFF1F5382)),
           ),
           child: Text(
             label,
             style: TextStyle(
-              color: isSelected ? Colors.white : Color(0xFF1F5382),
+              color: isSelected ? Colors.white : const Color(0xFF1F5382),
               fontWeight: FontWeight.w500,
               fontSize: 14,
             ),

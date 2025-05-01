@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'case_details.dart'; //
+
+import 'case_details.dart';
 
 class MyPatientListScreen extends StatefulWidget {
   const MyPatientListScreen({super.key});
@@ -15,8 +16,16 @@ class _MyPatientListScreenState extends State<MyPatientListScreen> {
     'Aya Nady Yassien',
   ];
 
-  final Color primaryColor = Color(0xFF1F5382); //
-  final Color hintGray = Color(0xFFBDBDBD); //
+  late List<bool> isCompleted;
+
+  final Color primaryColor = const Color(0xFF1F5382);
+  final Color hintGray = const Color(0xFFBDBDBD);
+
+  @override
+  void initState() {
+    super.initState();
+    isCompleted = List<bool>.filled(patients.length, false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +39,12 @@ class _MyPatientListScreenState extends State<MyPatientListScreen> {
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent, //
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
-          backgroundColor: Colors.transparent, //
+          backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -44,8 +53,8 @@ class _MyPatientListScreenState extends State<MyPatientListScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 24.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 24.0),
                 child: Text(
                   'You have new cases !',
                   style: TextStyle(
@@ -55,7 +64,7 @@ class _MyPatientListScreenState extends State<MyPatientListScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
               Expanded(
                 child: ListView.separated(
                   itemBuilder: (context, index) => GestureDetector(
@@ -72,8 +81,8 @@ class _MyPatientListScreenState extends State<MyPatientListScreen> {
                     child: Container(
                       height: 52,
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12.0),
@@ -81,8 +90,8 @@ class _MyPatientListScreenState extends State<MyPatientListScreen> {
                           BoxShadow(
                             color: Colors.grey.shade400,
                             blurRadius: 6,
-                            offset: Offset(1, 1),
-                          )
+                            offset: const Offset(1, 1),
+                          ),
                         ],
                       ),
                       child: Row(
@@ -92,81 +101,45 @@ class _MyPatientListScreenState extends State<MyPatientListScreen> {
                             height: 40,
                             width: 40,
                           ),
-                          Text(
-                            patients[index],
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              patients[index],
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          Checkbox(
+                            value: isCompleted[index],
+                            onChanged: (bool? value) {
+                              setState(() {
+                                isCompleted[index] = value ?? false;
+                              });
+                            },
+                            activeColor: primaryColor,
+                            // Blue color when checked
+                            checkColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            side: const BorderSide(
+                              color: Color(0xFF1F5382),
+                              // Border color when unchecked
+                              width: 2,
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  separatorBuilder: (context, index) => SizedBox(height: 35),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 35),
                   itemCount: patients.length,
                 ),
               ),
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.only(top: 180.0, left: 16.0, right: 16.0), //
-              //   child: Expanded(
-              //     child: ListView.builder(
-              //       itemCount: patients.length,
-              //       itemBuilder: (context, index) {
-              //         final patient = patients[index];
-              //         return Padding(
-              //           padding: const EdgeInsets.symmetric(vertical: 12.0), //
-              //           child: ElevatedButton(
-              //             style: ElevatedButton.styleFrom(
-              //               backgroundColor: Colors.white,
-              //               //
-              //               side: BorderSide(color: primaryColor, width: 1.5),
-              //               //
-              //               shape: RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.circular(50), //
-              //               ),
-              //               padding: EdgeInsets.symmetric(
-              //                 vertical: 16,
-              //                 horizontal: 16,
-              //               ),
-              //               elevation: 0,
-              //             ),
-              //             onPressed: () {
-              //               //
-              //               Navigator.push(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                   builder: (context) =>
-              //                       PatientDetailsScreen(patient: patient),
-              //                 ),
-              //               );
-              //             },
-              //             child: Row(
-              //               children: [
-              //                 Icon(
-              //                   Icons.add_box_outlined, //
-              //                   color: primaryColor,
-              //                   size: 24,
-              //                 ),
-              //                 SizedBox(width: 10),
-              //                 Text(
-              //                   patient,
-              //                   style: TextStyle(
-              //                     color: Colors.black,
-              //                     fontSize: 16,
-              //                     fontWeight: FontWeight.w500,
-              //                   ),
-              //                 ),
-              //               ],
-              //             ),
-              //           ),
-              //         );
-              //       },
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
