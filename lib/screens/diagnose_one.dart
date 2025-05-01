@@ -49,7 +49,7 @@ class _DiagnoseOneScreenState extends State<DiagnoseOneScreen> {
           },
         ),
         title: const Text(
-          'Diagnose one',
+          'Registrations',
           style: TextStyle(
             fontSize: 26,
             fontWeight: FontWeight.bold,
@@ -135,37 +135,39 @@ class _DiagnoseOneScreenState extends State<DiagnoseOneScreen> {
             const SizedBox(height: 20),
             _buildTitle('Patient Disease'),
             const SizedBox(height: 8),
-            ...diseases.map(
-              (disease) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.medical_services_outlined,
-                      color: customBlue,
-                      size: 20,
+            // تعديل جزء Patient Disease
+            patientDisease.contains('Liver disease')
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.medical_services_outlined,
+                          color: customBlue,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'Liver disease',
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ),
+                        Checkbox(
+                          value: true, // Liver disease مختار
+                          onChanged: null, // غير تفاعلي
+                          activeColor: customBlue,
+                          checkColor: Colors.white,
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                        child: Text(disease,
-                            style: const TextStyle(fontSize: 14))),
-                    Checkbox(
-                      value: patientDisease.contains(disease),
-                      onChanged: (val) {
-                        setState(() {
-                          if (val == true) {
-                            patientDisease.add(disease);
-                          } else {
-                            patientDisease.remove(disease);
-                          }
-                        });
-                      },
-                      activeColor: customBlue,
-                      checkColor: Colors.white,
+                  )
+                : const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 4),
+                    child: Text(
+                      'No diseases selected',
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
                     ),
-                  ],
-                ),
-              ),
             ),
             const SizedBox(height: 20),
             _buildButton('Diagnose two', customBlue, () {
@@ -313,7 +315,7 @@ class _DiagnoseOneScreenState extends State<DiagnoseOneScreen> {
             if (isSmoking) {
               smoke = value == 'Yes' ? 'Yes' : 'No';
             } else if (isBrushing) {
-              brushTeeth = value == 'Yes' ? 'Yes' : 'No';
+              brushTeeth = (value == 'Yes') as String;
             }
           });
         },

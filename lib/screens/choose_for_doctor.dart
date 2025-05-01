@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'settings_screen.dart';
 
 class DoctorHomeView extends StatelessWidget {
@@ -35,7 +36,8 @@ class DoctorHomeView extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     radius: 30,
-                    backgroundImage: AssetImage('assets/images/aya.png'),
+                    backgroundImage:
+                        AssetImage('assets/images/doctor_image.webp'),
                   ),
                   const SizedBox(width: 15),
                   Column(

@@ -22,11 +22,11 @@ class _PatientListScreenState extends State<PatientListScreen> {
     'Tasneem Yasser',
     'Arwa Zanaty'
   ];
-  String query = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -45,33 +45,11 @@ class _PatientListScreenState extends State<PatientListScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  query = value.toLowerCase();
-                });
-              },
-              decoration: InputDecoration(
-                hintText: 'Find a patient',
-                prefixIcon: Icon(Icons.search, color: Colors.grey),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
                 itemCount: patients.length,
                 itemBuilder: (context, index) {
                   final patient = patients[index];
-                  if (query.isNotEmpty &&
-                      !patient.toLowerCase().contains(query)) {
-                    return SizedBox.shrink();
-                  }
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
                     child: ElevatedButton(
