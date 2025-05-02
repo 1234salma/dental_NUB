@@ -11,9 +11,10 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   String gender = "";
-  String bookingType = "Normal";
-  bool brushTeeth = false;
-  bool smoke = false;
+  String bookingType = "";
+  String complaint = "";
+  bool? brushTeeth; // Nullable bool to start as null (unset)
+  bool? smoke;     // Nullable bool to start as null (unset)
   int timesBrushing = 0;
   int cigarettesPerDay = 0;
 
@@ -48,13 +49,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            _buildLabeledTextField("Full Name *", "Enter Your Name", isRequired: true),
+            _buildLabeledTextField("Full Name ", "Enter Your Name", isRequired: true),
             const SizedBox(height: 20),
-            _buildLabeledTextField("Phone Number *", "Enter Your Phone", isRequired: true),
+            _buildLabeledTextField("Phone Number ", "Enter Your Phone", isRequired: true),
             const SizedBox(height: 20),
-            _buildLabeledTextField("National ID *", "Enter Your National ID Number", isRequired: true),
+            _buildLabeledTextField("National ID ", "Enter Your National ID Number", isRequired: true),
             const SizedBox(height: 20),
-            _buildLabeledTextField("Age *", "Enter Your Age", isRequired: true),
+            _buildLabeledTextField("Age ", "Enter Your Age", isRequired: true),
             const SizedBox(height: 20),
             _buildLabeledTextField("Address", "Enter Your Address"),
             const SizedBox(height: 20),
@@ -65,6 +66,44 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 const SizedBox(width: 8),
                 _buildRadioButton("Female", "Female", group: "gender"),
               ],
+            ),
+            const SizedBox(height: 20),
+            _buildTitle("Choose your complaint *"),
+            DropdownButtonFormField<String>(
+              value: complaint.isEmpty ? null : complaint,
+              hint: const Text(
+                "Select Your Complaint",
+                style: TextStyle(color: Colors.grey, fontSize: 14),
+              ),
+              onChanged: (String? newValue) {
+                setState(() {
+                  complaint = newValue!;
+                });
+              },
+              validator: (value) => value == null ? 'Please select a complaint' : null,
+              items: <String>["الم في الاسنان", "حشو", "تنظيف جير", "زراعة", "تركيبات"].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.grey),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.grey),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.grey),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              ),
             ),
             const SizedBox(height: 20),
             _buildTitle("Select your Booking *"),
@@ -84,12 +123,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 _buildCheckbox("No", false, isBrushing: true),
               ],
             ),
-            const SizedBox(height: 20),
-            _buildCounter("How many times a day?", timesBrushing, (val) {
-              setState(() {
-                timesBrushing = val;
-              });
-            }),
+            if (brushTeeth == true) ...[
+              const SizedBox(height: 20),
+              _buildCounter("How many times a day?", timesBrushing, (val) {
+                setState(() {
+                  timesBrushing = val;
+                });
+              }),
+            ],
             const SizedBox(height: 20),
             _buildTitle("Do you smoke?"),
             Row(
@@ -99,12 +140,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 _buildCheckbox("No", false, isSmoking: true),
               ],
             ),
-            const SizedBox(height: 20),
-            _buildCounter("How many cigarettes a day?", cigarettesPerDay, (val) {
-              setState(() {
-                cigarettesPerDay = val;
-              });
-            }),
+            if (smoke == true) ...[
+              const SizedBox(height: 20),
+              _buildCounter("How many cigarettes a day?", cigarettesPerDay, (val) {
+                setState(() {
+                  cigarettesPerDay = val;
+                });
+              }),
+            ],
             const SizedBox(height: 20),
             _buildUploadField("Upload", () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => UploadScreen()));
@@ -122,13 +165,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget _buildTitle(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          color: Color(0xFF1F5382),
-        ),
+      child: Row(
+        children: [
+          Text(
+            text.replaceAll('*', ''),
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF1F5382),
+            ),
+          ),
+          if (text.contains('*'))
+            const Text(
+              ' *',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.red,
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -242,7 +298,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   Widget _buildCheckbox(String label, bool value,
       {bool isSmoking = false, bool isBrushing = false}) {
-    bool isSelected =
+    bool? isSelected =
         (isSmoking && smoke == value) || (isBrushing && brushTeeth == value);
     return Expanded(
       child: GestureDetector(
@@ -260,7 +316,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           decoration: BoxDecoration(
             border: Border.all(color: customBlue),
             borderRadius: BorderRadius.circular(10),
-            color: isSelected ? customBlue : Colors.white,
+            color: isSelected == true ? customBlue : Colors.white,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -270,9 +326,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 onChanged: (bool? newValue) {
                   setState(() {
                     if (isSmoking) {
-                      smoke = newValue!;
+                      smoke = newValue;
                     } else if (isBrushing) {
-                      brushTeeth = newValue!;
+                      brushTeeth = newValue;
                     }
                   });
                 },
@@ -282,7 +338,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               Text(
                 label,
                 style: TextStyle(
-                  color: isSelected ? Colors.white : customBlue,
+                  color: isSelected == true ? Colors.white : customBlue,
                   fontSize: 14,
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:buisness_test/screens/choose_for_patient.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,7 +9,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ConfirmationScreen(),
+      initialRoute: '/appointment_confirmation',
+      routes: {
+        '/choose_patient': (context) => ChooseForPatientScreen(
+              userName: '',
+              userEmail: '',
+            ),
+        '/appointment_confirmation': (context) => ConfirmationScreen(),
+      },
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -21,6 +29,17 @@ class ConfirmationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.home, color: Color(0xFF1F5382)),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/choose_patient');
+          },
+        ),
+        title: const Text(''),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Center(
         child: Container(
           width: 300,
