@@ -73,7 +73,7 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
               ),
               const SizedBox(height: 30), 
               const Text(
-                "Select Your Disease *",
+                "Select Your Disease ",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
